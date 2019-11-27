@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>SyZeroAdmin.EntityFrameworkCore</AssemblyName>
+    <RootNamespace>SyZero.Admin.EntityFrameworkCore</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SyZeroAdmin.Core\SyZeroAdmin.Core.csproj" />
+  </ItemGroup>
+
+</Project>
