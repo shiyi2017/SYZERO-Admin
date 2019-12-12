@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using SyZeroAdmin.Web.Core.Authentication;
 
 namespace SyZeroAdmin.Web
 {
@@ -29,7 +30,11 @@ namespace SyZeroAdmin.Web
    
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AppExceptionFilter());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
 
             #region Swagger
             services.AddSwaggerGen(options =>
@@ -37,8 +42,8 @@ namespace SyZeroAdmin.Web
                 options.SwaggerDoc("v1", new Info
                 {
                     Version = "v1",
-                    Title = "SyBlog接口文档",
-                    Description = "RESTful API for SyBlogManagement",
+                    Title = "SyZeroAdmin接口文档",
+                    Description = "RESTful API for SyZeroAdmin",
                     TermsOfService = "None",
                     Contact = new Contact { Name = "SYZERO", Email = "522112669@qq.com", Url = "http://syzero.com" }
                 });
@@ -77,13 +82,15 @@ namespace SyZeroAdmin.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-         
+            app.UseStaticFiles();
+
+            app.UseAuthentication();
             // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger();
             // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "SyBlogManagement API V1");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "SyZeroAdmin API V1");
                 options.RoutePrefix = string.Empty;
             });
             //cors跨域

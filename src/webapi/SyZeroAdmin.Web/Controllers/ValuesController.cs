@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SyZeroAdmin.Web.Core.Authentication;
+using SyZeroAdmin.Web.Core.Models;
 
 namespace SyZeroAdmin.Web.Controllers
 {
@@ -14,6 +16,8 @@ namespace SyZeroAdmin.Web.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            string[] pp = new string[2];
+            pp[9] = "555";
             return new string[] { "value1", "value2" };
         }
 
@@ -21,7 +25,7 @@ namespace SyZeroAdmin.Web.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            return new JsonResult(id);
         }
 
         // POST api/values
